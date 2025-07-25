@@ -1,3 +1,4 @@
 FROM postgres:17
-ENV POSTGRES_PASSWORD pg
 USER postgres
+WORKDIR /docker-entrypoint-initdb.d
+COPY ./sql/*/. .
