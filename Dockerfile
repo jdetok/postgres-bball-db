@@ -1,0 +1,3 @@
+FROM postgres:17
+ENV POSTGRES_PASSWORD pg
+USER postgres
