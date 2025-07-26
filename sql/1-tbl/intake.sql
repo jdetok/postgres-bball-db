@@ -30,7 +30,7 @@ create table intake.gm_player (
     pf int,
     pts int,
     plus_minus int,
-    fantasy_pts int,
+    fantasy_pts numeric(3, 1),
     video_available smallint,
     primary key (game_id, player_id)
 );
