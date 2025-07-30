@@ -10,9 +10,10 @@
 - the league schema is for core player/league/team data
 ### tables 
 - lg
+- szn
 - team
-- player
-- player_current
+- plr
+- plr_crnt
 # stats
 - stats schema is for player/team box scores
 ### tables
