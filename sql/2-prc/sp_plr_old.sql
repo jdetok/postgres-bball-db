@@ -1,4 +1,12 @@
+-- left join to intake.player to capture all in gm_player. fields from that 
+-- table will be null if player is not in intake.player
 
+/* 
+insert players from intake.gm_player into lg.plr
+left join on intake.player to insert players if they are not in intake.player
+need to also consider joining in wplayer as well to capture the league id 
+for players in w table as well
+*/
 create or replace procedure lg.sp_plr_old_load()
 language plpgsql
 as $$
@@ -15,7 +23,7 @@ begin
             c.to_year
         from intake.gm_player a
         inner join lg.team b on b.team_id = a.team_id
-        left join intake.player c on a.player_id = c.person_id 
+        left join intake.player c on a.player_id = c.person_id
         group by b.lg_id, a.player_id, c.playercode, a.player_name,
                     c.display_last_comma_first, c.from_year, c.to_year
     on conflict (player_id) do nothing;

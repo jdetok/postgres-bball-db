@@ -1,3 +1,7 @@
+/* 
+functions and procedures to take a season id & generate the values for lg.season
+*/
+
 create or replace function lg.fn_szn(s_id int)
 returns varchar(255)
 language plpgsql

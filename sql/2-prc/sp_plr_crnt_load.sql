@@ -1,4 +1,7 @@
--- procedure to update lg.plr
+/*
+insert current palyers into lg.plr_crnt. player has to exist in lg.plr before they can be 
+inserted into plr_crnt. 
+*/
 
 create or replace procedure lg.sp_plr_crnt_load()
 language plpgsql

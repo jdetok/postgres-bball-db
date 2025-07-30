@@ -1,4 +1,7 @@
--- procedure to update lg.plr
+/* 
+load players from intake.player & wplayer tables into lg.plr
+in db creation, this should be called before sp_plr_old_load
+*/
 
 create or replace procedure lg.sp_plr_load()
 language plpgsql
