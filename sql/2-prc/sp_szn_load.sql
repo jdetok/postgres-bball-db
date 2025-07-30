@@ -72,7 +72,7 @@ begin
             lg.fn_szn_desc(a.season_id),
             lg.fn_wszn(a.season_id),
             lg.fn_wszn_desc(a.season_id)
-        from intake.gm_player a
+        from intake.gm_team a
         inner join lg.szn_type b
             on cast(left(cast(a.season_id as varchar(10)), 1) as int) = b.sznt_id
         group by a.season_id, b.sznt_id

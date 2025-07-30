@@ -12,7 +12,7 @@ begin
             person_id,
             playercode
         from intake.player
-    on conflict (player_id) do nothing;
+    on conflict (player_id, team_id) do update set team_id = excluded.team_id;
 
     insert into lg.plr_crnt (
         lg_id, team_id, player_id, plr_cde)
@@ -22,7 +22,7 @@ begin
             person_id,
             playercode
         from intake.wplayer
-    on conflict (player_id) do nothing;
+    on conflict (player_id, team_id) do update set team_id = excluded.team_id;
 end; $$;
 
 call lg.sp_plr_crnt_load();

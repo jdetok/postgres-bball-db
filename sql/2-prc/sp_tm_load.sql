@@ -1,4 +1,4 @@
-create or replace procedure lg.sp_load_team()
+create or replace procedure lg.sp_team_load()
 language plpgsql
 as $$
 begin
@@ -8,14 +8,14 @@ begin
             0,
             a.team_id,
             a.team_abbreviation,
-            a.team_code,
-            b.team_name,
-            a.team_city,
-            a.team_name
-        from intake.player a
-        inner join intake.gm_team b on b.team_id = a.team_id
-        group by a.team_id, a.team_abbreviation, a.team_code, b.team_name, 
-            a.team_city, a.team_name
+            lower(a.team_abbreviation) || '_' || b.team_code,
+            a.team_name,
+            b.team_city,
+            b.team_name
+        from intake.gm_team a
+        inner join intake.player b on b.team_id = a.team_id
+        group by a.team_id, a.team_abbreviation, b.team_code, a.team_name, 
+            b.team_city, b.team_name
     on conflict (team_id) do nothing;
 
     insert into lg.team (
@@ -24,15 +24,17 @@ begin
             1,
             a.team_id,
             a.team_abbreviation,
-            a.team_code,
-            b.team_name,
-            a.team_city,
-            a.team_name
-        from intake.wplayer a
-        inner join intake.gm_team b on b.team_id = a.team_id
-        group by a.team_id, a.team_abbreviation, a.team_code, b.team_name, 
-            a.team_city, a.team_name
+            lower(a.team_abbreviation) || '_' || b.team_code,
+            a.team_name,
+            b.team_city,
+            b.team_name
+        from intake.gm_team a
+        inner join intake.wplayer b on b.team_id = a.team_id
+        group by a.team_id, a.team_abbreviation, b.team_code, a.team_name, 
+            b.team_city, b.team_name
     on conflict (team_id) do nothing;
 end; $$;
 
-call lg.sp_load_team();
+call lg.sp_team_load();
+select * from lg.team;
+--delete from lg.team;

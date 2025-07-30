@@ -1,5 +1,6 @@
+--DECIDED TO REMOVE LEAGE. AVAILABLE WITH SINGLE JOIN TO PLAYER OR TEAM TABLE
 create table stats.pbox (
-    lg_id int references lg.league(lg_id),
+    szn_id int references lg.szn(szn_id),
     team_id bigint not null references lg.team(team_id),
     game_id bigint not null,
     player_id bigint not null references lg.plr(player_id),
@@ -30,7 +31,6 @@ create table stats.pbox (
 );
 
 create table stats.tbox (
-    lg_id int references lg.league(lg_id),
     szn_id int references lg.szn(szn_id),
     team_id bigint not null references lg.team(team_id),
     game_id bigint not null,
