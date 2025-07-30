@@ -1,9 +1,9 @@
 create table stats.pbox (
+    lg_id int references lg.league(lg_id),
+    team_id bigint not null references lg.team(team_id),
     game_id bigint not null,
-    team_id bigint not null references league.team(team_id),
-    lg_id int references league.lg(lg_id),
-    player_id bigint not null references player.all(player_id),
-    player varchar(255),
+    player_id bigint not null references lg.plr(player_id),
+    gdate date,
     matchup varchar(50),
     wl varchar(1),
     mins int,
@@ -30,9 +30,10 @@ create table stats.pbox (
 );
 
 create table stats.tbox (
+    lg_id int references lg.league(lg_id),
+    team_id bigint not null references lg.team(team_id),
     game_id bigint not null,
-    team_id bigint not null references league.team(team_id),
-    lg_id int references league.lg(lg_id),
+    gdate date,
     matchup varchar(50),
     wl varchar(1),
     mins int,
