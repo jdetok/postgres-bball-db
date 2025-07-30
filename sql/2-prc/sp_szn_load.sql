@@ -1,4 +1,4 @@
-create or replace function lg.fn_szn_from_id(s_id int)
+create or replace function lg.fn_szn(s_id int)
 returns varchar(255)
 language plpgsql
 as $$
@@ -14,7 +14,7 @@ begin
     return season_concat;
 end; $$; 
 
-create or replace function lg.fn_slong_from_id(s_id int)
+create or replace function lg.fn_szn_desc(s_id int)
 returns varchar(255)
 language plpgsql
 as $$
@@ -30,7 +30,7 @@ begin
     return season_concat;
 end; $$; 
 
-create or replace function lg.fn_wszn_from_id(s_id int)
+create or replace function lg.fn_wszn(s_id int)
 returns varchar(255)
 language plpgsql
 as $$
@@ -45,7 +45,7 @@ begin
     return season_concat;
 end; $$; 
 
-create or replace function lg.fn_wslong_from_id(s_id int)
+create or replace function lg.fn_wszn_desc(s_id int)
 returns varchar(255)
 language plpgsql
 as $$
@@ -60,33 +60,23 @@ begin
     return season_concat;
 end; $$; 
 
-create or replace procedure lg.sp_load_szn()
+create or replace procedure lg.sp_szn_load()
 language plpgsql
 as $$
 begin
-    -- drop table if exists lg.tmp;
-    -- create table lg.tmp (
-    --     szn_id int, 
-    --     szn varchar(255),
-    --     slong varchar(255),
-    --     wszn varchar(255),
-    --     wslong varchar(255)
-    -- );
-    
     insert into lg.szn
         select 
             a.season_id, 
             b.sznt_id, 
             lg.fn_szn_from_id(a.season_id),
-            lg.fn_slong_from_id(a.season_id),
-            lg.fn_wszn_from_id(a.season_id),
-            lg.fn_wslong_from_id(a.season_id)
-            
+            lg.fn_szn_desc(a.season_id),
+            lg.fn_wszn(a.season_id),
+            lg.fn_wszn_desc(a.season_id)
         from intake.gm_player a
         inner join lg.szn_type b
             on cast(left(cast(a.season_id as varchar(10)), 1) as int) = b.sznt_id
         group by a.season_id, b.sznt_id
     on conflict (szn_id) do nothing;
 end; $$;
-call lg.sp_load_szn();
+call lg.sp_szn_load();
 select * from lg.szn;
