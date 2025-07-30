@@ -1,3 +1,8 @@
+/*
+insert new teams into lg.team from intake.gm_teama
+creates new concatenated column team_cde in format lal_lakers, bos_boston etc
+*/ 
+
 create or replace procedure lg.sp_team_load()
 language plpgsql
 as $$

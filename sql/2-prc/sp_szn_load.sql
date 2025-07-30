@@ -1,5 +1,6 @@
 /* 
 functions and procedures to take a season id & generate the values for lg.season
+relies on lg.szn_type being populated to create the concatenated szn_desc and wszn_desc fields
 */
 
 create or replace function lg.fn_szn(s_id int)

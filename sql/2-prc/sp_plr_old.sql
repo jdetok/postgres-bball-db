@@ -1,6 +1,3 @@
--- left join to intake.player to capture all in gm_player. fields from that 
--- table will be null if player is not in intake.player
-
 /* 
 insert players from intake.gm_player into lg.plr
 left join on intake.player to insert players if they are not in intake.player
