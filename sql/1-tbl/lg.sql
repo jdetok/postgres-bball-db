@@ -6,6 +6,7 @@ create table lg.league (
 );
 
 insert into lg.league values 
+	(99, 'nat', 'NAT', 'Not Assigned to a Team'),
     (0, 'nba', 'NBA', 'National Basketball Association'),
     (1, 'wnba', 'WNBA', 'Women''s National Basketball Association'),
     (9, 'misc', 'MISC', 'Temporary/Miscellaneous League');
@@ -34,27 +35,32 @@ create table lg.szn (
 );
 
 create table lg.team (
-    team_id bigint primary key,
     lg_id int references lg.league(lg_id),
+    team_id bigint primary key,
     team varchar(10),
     team_cde varchar(255),
-    team_name varchar(255),
-    team_city varchar(255)
+    team_long varchar(255),
+    team_city varchar(255),
+    team_shrt varchar(255)
 );
 
+insert into lg.team (lg_id, team_id, team, team_cde, team_long) values 
+    (99, 0, 'NAT', 'noteam', 'Not Assigned');
+
 create table lg.plr (
-    player_id bigint primary key,
     lg_id int references lg.league(lg_id),
-    player varchar(255),
+    player_id bigint primary key,
     plr_cde varchar(255),
+    player varchar(255),
     last_first varchar(255),
     from_year varchar(4),
     to_year varchar(4)
 );
 
 create table lg.plr_crnt (
-    player_id bigint primary key references lg.plr(player_id),
-    player varchar(255),
+    lg_id int references lg.league(lg_id),
     team_id bigint references lg.team(team_id),
-    lg_id int references lg.league(lg_id)
+    player_id bigint references lg.plr(player_id),
+    plr_cde varchar(255),
+    primary key (player_id, team_id)
 );
