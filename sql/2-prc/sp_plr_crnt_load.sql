@@ -27,3 +27,5 @@ end; $$;
 
 call lg.sp_plr_crnt_load();
 select * from lg.plr_crnt;
+select * from lg.plr where player_id = 1628304;
+select * from intake.wplayer where person_id = 1628304; 

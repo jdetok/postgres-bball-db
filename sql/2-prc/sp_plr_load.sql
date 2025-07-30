@@ -1,6 +1,6 @@
 -- procedure to update lg.plr
 
-create or replace procedure lg.sp_load_plr()
+create or replace procedure lg.sp_plr_load()
 language plpgsql
 as $$
 begin
@@ -31,5 +31,5 @@ begin
     on conflict (player_id) do nothing;
 end; $$;
 
-call lg.sp_load_plr();
-select * from lg.tmp;
+call lg.sp_plr_load();
+select * from lg.plr;

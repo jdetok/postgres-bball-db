@@ -6,33 +6,18 @@ begin
     insert into lg.plr (
         lg_id, player_id, plr_cde, player, last_first, from_year, to_year)
         select 
-            0, 
+            b.lg_id, 
             a.player_id,
-            b.playercode,
+            c.playercode,
             a.player_name,
-            b.display_last_comma_first,
-            b.from_year,
-            b.to_year
+            c.display_last_comma_first,
+            c.from_year,
+            c.to_year
         from intake.gm_player a
-        left join intake.player b on a.player_id = b.person_id 
-        group by a.player_id, b.playercode, a.player_name,
-                    b.display_last_comma_first, b.from_year, b.to_year
-    on conflict (player_id) do nothing;
-
-    insert into lg.plr (
-        lg_id, player_id, plr_cde, player, last_first, from_year, to_year)
-        select 
-            1, 
-            a.player_id,
-            b.playercode,
-            a.player_name,
-            b.display_last_comma_first,
-            b.from_year,
-            b.to_year
-        from intake.gm_player a
-        left join intake.wplayer b on a.player_id = b.person_id 
-        group by a.player_id, b.playercode, a.player_name,
-                    b.display_last_comma_first, b.from_year, b.to_year
+        inner join lg.team b on b.team_id = a.team_id
+        left join intake.player c on a.player_id = c.person_id 
+        group by b.lg_id, a.player_id, c.playercode, a.player_name,
+                    c.display_last_comma_first, c.from_year, c.to_year
     on conflict (player_id) do nothing;
 end; $$;
 
