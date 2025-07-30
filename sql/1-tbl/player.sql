@@ -1,8 +1,14 @@
 create table league.lg (
     lg_id int primary key,
-    lg varchar(10),
+    lg_cde varchar(10) unique,
+    lg varchar(10) unique,
     lg_name varchar(255)
 );
+
+insert into league.lg values 
+    (0, 'nba', 'NBA', 'National Basketball Association'),
+    (1, 'wnba', 'WNBA', 'Women''s National Basketball Association'),
+    (9, 'misc', 'MISC', 'Temporary/Miscellaneous League');
 
 create table league.team (
     team_id bigint primary key,
