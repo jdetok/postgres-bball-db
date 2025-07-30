@@ -13,7 +13,10 @@
 - szn
 - team
 - plr
+    - get the lg_id based on whether data is sourced from player or wplayer
 - plr_crnt
+### loading
+- tables in league schema are loaded from intake schema
 # stats
 - stats schema is for player/team box scores
 ### tables
