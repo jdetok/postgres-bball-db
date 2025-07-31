@@ -73,7 +73,7 @@ begin
         select 
             a.season_id, 
             b.sznt_id, 
-            lg.fn_szn_from_id(a.season_id),
+            lg.fn_szn(a.season_id),
             lg.fn_szn_desc(a.season_id),
             lg.fn_wszn(a.season_id),
             lg.fn_wszn_desc(a.season_id)
